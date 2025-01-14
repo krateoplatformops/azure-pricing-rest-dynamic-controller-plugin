@@ -1,0 +1,84 @@
+basePath: /
+definitions:
+  retail.Price:
+    properties:
+      armRegionName:
+        type: string
+      armSkuName:
+        type: string
+      currencyCode:
+        type: string
+      effectiveStartDate:
+        type: string
+      isPrimaryMeterRegion:
+        type: boolean
+      location:
+        type: string
+      meterId:
+        type: string
+      meterName:
+        type: string
+      productId:
+        type: string
+      productName:
+        type: string
+      retailPrice:
+        type: number
+      serviceFamily:
+        type: string
+      serviceId:
+        type: string
+      serviceName:
+        type: string
+      skuId:
+        type: string
+      skuName:
+        type: string
+      tierMinimumUnits:
+        type: number
+      type:
+        type: string
+      unitOfMeasure:
+        type: string
+      unitPrice:
+        type: number
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
+info:
+  contact:
+    email: contact@krateoplatformops.io
+    name: Krateo Support
+    url: https://krateo.io
+  description: Simple wrapper around Azure Pricing API for Krateo Operator Generator
+    (KOG)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Azure Pricing Plugin API for Krateo Operator Generator (KOG)
+  version: "1.0"
+paths:
+  /api/retail/prices:
+    get:
+      description: Get all Azure retail prices
+      operationId: get-prices
+      parameters:
+      - description: filter for the retail prices
+        in: query
+        name: $filter
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/retail.Price'
+      summary: Get all Azure retail prices
+schemes:
+- http
+swagger: "2.0"

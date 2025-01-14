@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Azure Retail Prices API
+  version: '1.0.0'
+  description: API for retrieving Azure retail pricing information
+servers:
+  - url: http://azure-pricing-rest-dynamic-controller-plugin.finops:8100/api/retail
+paths:
+  /prices:
+    get:
+      summary: Get Azure retail prices
+      description: Retrieve pricing information for Azure services with filtering options
+      parameters:
+        - name: $filter
+          in: query
+          required: false
+          description: OData filter expression
+          schema:
+            type: string
+            example: "serviceFamily eq 'Compute' and armRegionName eq 'westeurope'"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceItem'
+components:
+  schemas:
+    PriceItem:
+      type: object
+      properties:
+        currencyCode:
+          type: string
+          example: "USD"
+        tierMinimumUnits:
+          type: number
+          format: float
+          example: 0.0
+        retailPrice:
+          type: number
+          format: float
+          example: 7.2
+        unitPrice:
+          type: number
+          format: float
+          example: 7.2
+        armRegionName:
+          type: string
+          example: "westeurope"
+        location:
+          type: string
+          example: "EU West"
+        effectiveStartDate:
+          type: string
+          format: date-time
+          example: "2022-06-01T00:00:00Z"
+        meterId:
+          type: string
+          example: "0008192f-190b-5119-87b8-96130c21ecfe"
+        meterName:
+          type: string
+          example: "L48s v3"
+        productId:
+          type: string
+          example: "DZH318Z08NRP"
+        skuId:
+          type: string
+          example: "DZH318Z08NRP/001B"
+        productName:
+          type: string
+          example: "Virtual Machines Lsv3 Series Windows"
+        skuName:
+          type: string
+          example: "Standard_L48s_v3"
+        serviceName:
+          type: string
+          example: "Virtual Machines"
+        serviceId:
+          type: string
+          example: "DZH313Z7MMC8"
+        serviceFamily:
+          type: string
+          example: "Compute"
+        unitOfMeasure:
+          type: string
+          example: "1 Hour"
+        type:
+          type: string
+          example: "Consumption"
+          enum:
+            - Consumption
+            - DevTestConsumption
+        isPrimaryMeterRegion:
+          type: boolean
+          example: true
+        armSkuName:
+          type: string
+          example: "Standard_L48s_v3"
+      required:
+        - currencyCode
+        - tierMinimumUnits
+        - retailPrice
+        - unitPrice
+        - armRegionName
+        - location
+        - effectiveStartDate
+        - meterId
+        - meterName
+        - productId
+        - skuId
+        - productName
+        - skuName
+        - serviceName
+        - serviceId
+        - serviceFamily
+        - unitOfMeasure
+        - type
+        - isPrimaryMeterRegion
+        - armSkuName

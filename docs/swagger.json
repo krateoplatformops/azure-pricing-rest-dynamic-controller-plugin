@@ -1,0 +1,123 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Simple wrapper around Azure Pricing API for Krateo Operator Generator (KOG)",
+        "title": "Azure Pricing Plugin API for Krateo Operator Generator (KOG)",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Krateo Support",
+            "url": "https://krateo.io",
+            "email": "contact@krateoplatformops.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/retail/prices": {
+            "get": {
+                "description": "Get all Azure retail prices",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all Azure retail prices",
+                "operationId": "get-prices",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "filter for the retail prices",
+                        "name": "$filter",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/retail.Price"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "retail.Price": {
+            "type": "object",
+            "properties": {
+                "armRegionName": {
+                    "type": "string"
+                },
+                "armSkuName": {
+                    "type": "string"
+                },
+                "currencyCode": {
+                    "type": "string"
+                },
+                "effectiveStartDate": {
+                    "type": "string"
+                },
+                "isPrimaryMeterRegion": {
+                    "type": "boolean"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "meterId": {
+                    "type": "string"
+                },
+                "meterName": {
+                    "type": "string"
+                },
+                "productId": {
+                    "type": "string"
+                },
+                "productName": {
+                    "type": "string"
+                },
+                "retailPrice": {
+                    "type": "number"
+                },
+                "serviceFamily": {
+                    "type": "string"
+                },
+                "serviceId": {
+                    "type": "string"
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "skuId": {
+                    "type": "string"
+                },
+                "skuName": {
+                    "type": "string"
+                },
+                "tierMinimumUnits": {
+                    "type": "number"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "unitOfMeasure": {
+                    "type": "string"
+                },
+                "unitPrice": {
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    }
+}
