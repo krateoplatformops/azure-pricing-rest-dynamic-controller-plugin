@@ -82,7 +82,26 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusOK)
 
-				err = json.NewEncoder(w).Encode(prices.Items[0])
+				if len(prices.Items) == 0 {
+					h.Log.Error("encoding response body", slog.Any("error", fmt.Errorf("api result has zero items")))
+					w.Write([]byte(fmt.Sprint("Error: ", fmt.Errorf("api result has zero items"))))
+				}
+
+				maxValue := 0.0
+				maxIndex := -1
+				for i, priceItem := range prices.Items {
+					if priceItem.UnitPrice.AsApproximateFloat64() > maxValue {
+						maxValue = priceItem.UnitPrice.AsApproximateFloat64()
+						maxIndex = i
+					}
+				}
+
+				if maxIndex == -1 {
+					h.Log.Error("encoding response body", slog.Any("error", fmt.Errorf("could not find maximum in api result")))
+					w.Write([]byte(fmt.Sprint("Error: ", fmt.Errorf("could not find maximum in api result"))))
+				}
+
+				err = json.NewEncoder(w).Encode(prices.Items[maxIndex])
 				if err != nil {
 					h.Log.Error("encoding response body", slog.Any("error", err))
 					w.Write([]byte(fmt.Sprint("Error: ", err)))

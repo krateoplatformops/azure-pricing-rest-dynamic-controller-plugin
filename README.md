@@ -9,7 +9,7 @@ This module is part of the FinOps Data Presentation component, in the Krateo Com
 4. [Configuration](#configuration)
 
 ## Overview
-This module is an API-Wrapper for the [rest-dynamic-controller](https://github.com/krateoplatformops/rest-dynamic-controller) that allows the utilization of the [Kubernetes Operator Generator](https://github.com/krateoplatformops/oasgen-provider/) to collect information from a REST API. In this instance, we are collecting pricing data from the Azure API, however, the Azure pricing API returns a nested object, which is difficult to manage automatically. This simple plugin unwraps the nested object and then returns it, without any other modification.
+This module is an API-Wrapper for the [rest-dynamic-controller](https://github.com/krateoplatformops/rest-dynamic-controller) that allows the utilization of the [Kubernetes Operator Generator](https://github.com/krateoplatformops/oasgen-provider/) to collect information from a REST API. In this instance, we are collecting pricing data from the Azure API, however, the Azure pricing API returns a nested object, which is difficult to manage automatically. This simple plugin unwraps the nested object, finds the object with the maximum unit price value and then returns it, without any other modification.
 
 ## Architecture
 In the diagram, this component is the `DataPresentationProvider` (in this specific instance, the provider is Azure).
