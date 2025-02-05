@@ -72,8 +72,8 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					w.Write([]byte(fmt.Sprint("Error: ", err)))
 				}
 
-				if prices.Count != 1 {
-					err := fmt.Errorf("The requested filter returned more than one result: Count=%d", prices.Count)
+				if prices.Count < 1 {
+					err := fmt.Errorf("The requested filter returned no results: Count=%d", prices.Count)
 					h.Log.Error("Invalid request", slog.Any("error", err))
 					w.WriteHeader(http.StatusBadRequest)
 					w.Write([]byte(fmt.Sprint("Error: ", err)))
@@ -81,11 +81,6 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusOK)
-
-				if len(prices.Items) == 0 {
-					h.Log.Error("encoding response body", slog.Any("error", fmt.Errorf("api result has zero items")))
-					w.Write([]byte(fmt.Sprint("Error: ", fmt.Errorf("api result has zero items"))))
-				}
 
 				maxValue := 0.0
 				maxIndex := -1
